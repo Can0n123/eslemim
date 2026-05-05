@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sana Çok Aşığım ❤️</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 100px;
+      font-size: 32px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+    }
+
+    #yes {
+      background: green;
+      color: white;
+    }
+
+    #no {
+      background: red;
+      color: white;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sana Çok Aşığım Seni Kaçıracam ❤️</h1>
+
+  <button id="yes" class="btn">Evet 💖</button>
+  <button id="no" class="btn">Hayır 😅</button>
+
+  <audio autoplay loop>
+    <source src="sarki.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById("no");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    document.getElementById("yes").onclick = () => {
+      document.body.innerHTML = "<h1>Artık resmensin ❤️</h1>";
+    };
+  </script>
+
+</body>
+</html>
