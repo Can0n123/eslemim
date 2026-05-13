@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programmed Love</title>
+    <title>Programmed Love - Ada</title>
     <style>
         body {
             background-color: #000;
@@ -15,17 +15,17 @@
             align-items: center;
             height: 100vh;
             perspective: 1000px;
-            cursor: pointer; /* Tıklanması gerektiğini hissettirir */
+            cursor: pointer;
         }
 
-        /* Müzik uyarısı (opsiyonel) */
         #music-hint {
             position: fixed;
             top: 20px;
-            color: rgba(255, 94, 153, 0.5);
-            font-family: Arial, sans-serif;
-            font-size: 12px;
+            color: rgba(255, 94, 153, 0.4);
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
             pointer-events: none;
+            letter-spacing: 1px;
         }
 
         #heart-container {
@@ -33,48 +33,62 @@
             width: 600px;
             height: 600px;
             transform-style: preserve-3d;
-            animation: pulse 1.5s ease-in-out infinite;
         }
 
-        /* Kalbin genel nabız atışı */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* Ortadaki ADA yazısı */
+        .center-name {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #ff5e99;
+            font-family: 'Georgia', serif; /* Biraz daha zarif bir font */
+            font-size: 70px;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff5e99, 0 0 40px #ff2d75;
+            z-index: 100;
+            animation: center-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes center-pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
         }
 
         .love-text {
             position: absolute;
             color: #ff5e99;
             font-family: 'Arial', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             white-space: nowrap;
-            text-shadow: 0 0 10px #ff5e99, 0 0 20px #ff2d75;
+            text-shadow: 0 0 10px #ff5e99;
             pointer-events: none;
             animation: heart-anim 2.5s infinite linear;
             opacity: 0;
         }
 
         @keyframes heart-anim {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="music-hint">Müziği başlatmak için ekrana dokun / tıkla</div>
+    <div id="music-hint">Başlatmak için ekrana tıkla</div>
 
-    <!-- Müzik Elementi -->
     <audio id="bgMusic" loop>
         <source src="sarki.mp3" type="audio/mpeg">
-        Tarayıcınız ses öğesini desteklemiyor.
     </audio>
 
-    <div id="heart-container"></div>
+    <div id="heart-container">
+        <!-- Merkeze eklenen isim -->
+        <div class="center-name">Ada</div>
+    </div>
 
     <script>
         const container = document.getElementById('heart-container');
@@ -83,26 +97,23 @@
         const textContent = "I love you"; 
         const total = 120; 
 
-        // 1. Kalbi Oluştur
         function createHeart() {
             for (let i = 0; i < total; i++) {
                 const span = document.createElement('span');
                 span.className = 'love-text';
                 span.innerText = textContent;
 
-                // Kalp Parametrik Denklemi
                 const t = (i / total) * 2 * Math.PI;
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
 
-                const multiplier = 18; // Boyutu biraz büyüttüm
+                const multiplier = 18; 
                 const left = 300 + x * multiplier;
                 const top = 300 + y * multiplier;
 
                 span.style.left = `${left}px`;
                 span.style.top = `${top}px`;
 
-                // Rastgele gecikme ile daha organik görünüm
                 const delay = Math.random() * 2.5;
                 span.style.animationDelay = `${delay}s`;
 
@@ -110,21 +121,12 @@
             }
         }
 
-        // 2. Müzik Oynatma Kontrolü
-        function startExperience() {
+        document.body.addEventListener('click', () => {
             music.play().then(() => {
-                console.log("Müzik başladı.");
-                hint.style.display = "none"; // Müzik başlayınca yazıyı gizle
-            }).catch(error => {
-                console.error("Hata:", error);
-                alert("Müzik dosyası 'sarki.mp3' bulunamadı veya oynatılamıyor.");
-            });
-        }
+                hint.style.display = "none";
+            }).catch(e => console.log("Müzik dosyası hatası:", e));
+        }, { once: true });
 
-        // Sayfada herhangi bir yere tıklandığında müziği başlat
-        document.body.addEventListener('click', startExperience, { once: true });
-        
-        // Kalbi çiz
         createHeart();
     </script>
 </body>
