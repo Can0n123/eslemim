@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             perspective: 1000px;
+            cursor: pointer; /* Tıklanabilir olduğunu belirtmek için */
         }
 
         #heart-container {
@@ -45,15 +46,21 @@
 </head>
 <body>
 
-    <div id="heart-container">
-        <!-- İsim kısmı kaldırıldı -->
-    </div>
+    <!-- Ses dosyası elementi -->
+    <audio id="bgMusic" loop>
+        <source src="sarki.mp3" type="audio/mpeg">
+        Tarayıcınız ses öğesini desteklemiyor.
+    </audio>
+
+    <div id="heart-container"></div>
 
     <script>
         const container = document.getElementById('heart-container');
+        const music = document.getElementById('bgMusic');
         const textContent = "I love you"; 
         const total = 120; 
 
+        // Kalbi oluşturma fonksiyonu
         function createHeart() {
             for (let i = 0; i < total; i++) {
                 const span = document.createElement('span');
@@ -77,6 +84,11 @@
                 container.appendChild(span);
             }
         }
+
+        // İlk etkileşimde müziği başlat (Tarayıcı engellerini aşmak için)
+        document.body.addEventListener('click', () => {
+            music.play();
+        }, { once: true }); // Sadece ilk tıklamada çalışır
 
         createHeart();
     </script>
