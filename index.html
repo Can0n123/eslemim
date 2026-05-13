@@ -21,11 +21,11 @@
         #music-hint {
             position: fixed;
             top: 20px;
-            color: rgba(255, 94, 153, 0.4);
-            font-family: 'Arial', sans-serif;
+            color: rgba(255, 94, 153, 0.5);
+            font-family: sans-serif;
             font-size: 14px;
             pointer-events: none;
-            letter-spacing: 1px;
+            z-index: 200;
         }
 
         #heart-container {
@@ -35,27 +35,29 @@
             transform-style: preserve-3d;
         }
 
-        /* Ortadaki ADA yazısı */
+        /* ADA Yazısı - Tam Merkezde */
         .center-name {
             position: absolute;
             left: 50%;
             top: 50%;
+            /* Yazıyı tam merkeze sabitlemek için translate kullanıyoruz */
             transform: translate(-50%, -50%);
             color: #ff5e99;
-            font-family: 'Georgia', serif; /* Biraz daha zarif bir font */
-            font-size: 70px;
+            font-family: 'Arial', sans-serif;
+            font-size: 80px;
             font-weight: bold;
-            text-shadow: 0 0 20px #ff5e99, 0 0 40px #ff2d75;
+            text-shadow: 0 0 20px #ff5e99, 0 0 40px #ff2d75, 0 0 60px #ff2d75;
             z-index: 100;
-            animation: center-pulse 1.5s ease-in-out infinite;
+            text-align: center;
+            animation: pulse-name 1.2s ease-in-out infinite;
         }
 
-        @keyframes center-pulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+        @keyframes pulse-name {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
         }
 
+        /* Etraftaki Küçük Yazılar */
         .love-text {
             position: absolute;
             color: #ff5e99;
@@ -79,14 +81,15 @@
 </head>
 <body>
 
-    <div id="music-hint">Başlatmak için ekrana tıkla</div>
+    <div id="music-hint">Müziği başlatmak için ekrana tıkla</div>
 
+    <!-- Ses Dosyası -->
     <audio id="bgMusic" loop>
         <source src="sarki.mp3" type="audio/mpeg">
     </audio>
 
     <div id="heart-container">
-        <!-- Merkeze eklenen isim -->
+        <!-- Kalbin tam ortasındaki isim -->
         <div class="center-name">Ada</div>
     </div>
 
@@ -121,10 +124,14 @@
             }
         }
 
+        // Tıklama ile müziği ve deneyimi başlat
         document.body.addEventListener('click', () => {
             music.play().then(() => {
                 hint.style.display = "none";
-            }).catch(e => console.log("Müzik dosyası hatası:", e));
+            }).catch(e => {
+                console.error("Müzik başlatılamadı:", e);
+                alert("Müzik dosyası 'sarki.mp3' bulunamadı veya oynatılamıyor!");
+            });
         }, { once: true });
 
         createHeart();
