@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Programmed Love - Eslem</title>
+    <title>Programmed Love</title>
     <style>
         body {
             background-color: #000;
@@ -20,26 +20,6 @@
             width: 600px;
             height: 600px;
             transform-style: preserve-3d;
-        }
-
-        /* Kalbin sağındaki büyük Eslem yazısı */
-        .main-name {
-            position: absolute;
-            right: -50px; /* Kalbin sağında durması için */
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff5e99;
-            font-family: 'Arial', sans-serif;
-            font-size: 50px; /* Büyük ve belirgin */
-            font-weight: bold;
-            text-shadow: 0 0 20px #ff5e99, 0 0 40px #ff2d75;
-            z-index: 10;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { opacity: 0.8; text-shadow: 0 0 20px #ff5e99; }
-            to { opacity: 1; text-shadow: 0 0 40px #ff2d75, 0 0 60px #ff2d75; }
         }
 
         .love-text {
@@ -66,13 +46,12 @@
 <body>
 
     <div id="heart-container">
-        <!-- Sağ taraftaki sabit isim -->
-        <div class="main-name">Eslem</div>
+        <!-- İsim kısmı kaldırıldı -->
     </div>
 
     <script>
         const container = document.getElementById('heart-container');
-        const textContent = "I love you"; // Kalp yine bu yazıdan oluşacak
+        const textContent = "I love you"; 
         const total = 120; 
 
         function createHeart() {
